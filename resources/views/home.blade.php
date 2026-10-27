@@ -30,7 +30,7 @@
                 <div class="h-56">
                     <canvas id="chartParis"></canvas>
                 </div>
-                <p class="text-xs text-gray-500 mt-3">Rayonnement solaire (W/m²) — 24h</p>
+                <p class="text-xs text-gray-500 mt-3">Rayonnement solaire (W/m²) — Prévisions 24h</p>
             </div>
 
             <!-- Dakar -->
@@ -39,7 +39,7 @@
                 <div class="h-56">
                     <canvas id="chartDakar"></canvas>
                 </div>
-                <p class="text-xs text-gray-500 mt-3">Rayonnement solaire (W/m²) — 24h</p>
+                <p class="text-xs text-gray-500 mt-3">Rayonnement solaire (W/m²) — Prévisions 24h</p>
             </div>
 
             <!-- Carbone -->
@@ -104,7 +104,7 @@
             plugins: { legend: { display: false } }
         };
 
-        function buildChart(id, data, color, bg) {
+        function buildLineChart(id, data, color, bg) {
             new Chart(document.getElementById(id).getContext('2d'), {
                 type: 'line',
                 data: {
@@ -122,8 +122,8 @@
             });
         }
 
-        buildChart('chartParis', chartData.paris, 'rgb(99, 102, 241)', 'rgba(99, 102, 241, 0.1)');
-        buildChart('chartDakar', chartData.dakar, 'rgb(34, 197, 94)', 'rgba(34, 197, 94, 0.1)');
+        buildLineChart('chartParis', chartData.paris, 'rgb(99, 102, 241)', 'rgba(99, 102, 241, 0.1)');
+        buildLineChart('chartDakar', chartData.dakar, 'rgb(34, 197, 94)', 'rgba(34, 197, 94, 0.1)');
     </script>
 
 </body>

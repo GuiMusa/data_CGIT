@@ -13,7 +13,6 @@ class DashboardController extends Controller
         EmberService $emberService,
         WorldBankService $worldBankService
     ) {
-        // Coordonnées GPS
         $paris = ['lat' => 48.8566, 'lon' => 2.3522];
         $dakar = ['lat' => 14.7167, 'lon' => -17.4677];
 
@@ -29,7 +28,6 @@ class DashboardController extends Controller
         $internetFrance  = $worldBankService->getInternetUsers('FRA');
         $internetSenegal = $worldBankService->getInternetUsers('SEN');
 
-        // --- Préparation vue ---
         $chartData = [
             'paris' => [
                 'labels' => array_slice($dataParis['hourly']['time'] ?? [], 0, 24),
