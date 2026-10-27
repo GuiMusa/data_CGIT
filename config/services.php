@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    
+    // ... autres services
 
+    'ember' => [
+        'key' => env('EMBER_API_KEY'),
+    ],
 ];
