@@ -4,28 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Services\OpenMeteoService;
 use App\Services\EmberService;
+use App\Services\WorldBankService;
 
 class DashboardController extends Controller
 {
-    public function index(OpenMeteoService $openMeteoService, EmberService $emberService)
-    {
+    public function index(
+        OpenMeteoService $openMeteoService,
+        EmberService $emberService,
+        WorldBankService $worldBankService
+    ) {
         // Coordonnées GPS
-        $fortDeFrance = ['lat' => 14.6161, 'lon' => -61.0588];
-        $dakar        = ['lat' => 14.7167, 'lon' => -17.4677];
+        $paris = ['lat' => 48.8566, 'lon' => 2.3522];
+        $dakar = ['lat' => 14.7167, 'lon' => -17.4677];
 
-        // --- Données Solaire (Open-Meteo) ---
-        $dataMartinique = $openMeteoService->getSolarData($fortDeFrance['lat'], $fortDeFrance['lon']);
-        $dataDakar      = $openMeteoService->getSolarData($dakar['lat'], $dakar['lon']);
+        // --- Solaire (Open-Meteo) ---
+        $dataParis = $openMeteoService->getSolarData($paris['lat'], $paris['lon']);
+        $dataDakar = $openMeteoService->getSolarData($dakar['lat'], $dakar['lon']);
 
-        // --- Données Carbone (Ember) ---
+        // --- Carbone (Ember) ---
         $carbonFrance  = $emberService->getCarbonIntensity('FRA');
         $carbonSenegal = $emberService->getCarbonIntensity('SEN');
 
-        // --- Préparation pour la vue ---
+        // --- Internet (World Bank) ---
+        $internetFrance  = $worldBankService->getInternetUsers('FRA');
+        $internetSenegal = $worldBankService->getInternetUsers('SEN');
+
+        // --- Préparation vue ---
         $chartData = [
-            'martinique' => [
-                'labels' => array_slice($dataMartinique['hourly']['time'] ?? [], 0, 24),
-                'values' => array_slice($dataMartinique['hourly']['shortwave_radiation'] ?? [], 0, 24),
+            'paris' => [
+                'labels' => array_slice($dataParis['hourly']['time'] ?? [], 0, 24),
+                'values' => array_slice($dataParis['hourly']['shortwave_radiation'] ?? [], 0, 24),
             ],
             'dakar' => [
                 'labels' => array_slice($dataDakar['hourly']['time'] ?? [], 0, 24),
@@ -34,6 +42,10 @@ class DashboardController extends Controller
             'carbon' => [
                 'france'  => $carbonFrance,
                 'senegal' => $carbonSenegal,
+            ],
+            'internet' => [
+                'france'  => $internetFrance,
+                'senegal' => $internetSenegal,
             ],
         ];
 
