@@ -22,66 +22,72 @@
             <p class="text-gray-600">Comparatif Europe / Afrique de l'Ouest sur les énergies renouvelables, l'impact carbone et la maturité digitale.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="space-y-8">
 
-            <!-- Paris -->
+            <!-- ============ CARTE 1 : SOLAIRE ============ -->
             <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-indigo-500">
-                <h3 class="text-lg font-bold mb-4">🇫🇷 Paris (France)</h3>
-                <div class="h-56">
-                    <canvas id="chartParis"></canvas>
+                <h3 class="text-xl font-bold mb-2">☀️ Rayonnement Solaire (Prévisions 24h)</h3>
+                <p class="text-sm text-gray-500 mb-6">Potentiel d'ensoleillement — Source : Open-Meteo</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-700 mb-2">🇫🇷 Paris (France)</p>
+                        <div class="h-48">
+                            <canvas id="chartParis"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-700 mb-2">🇸🇳 Dakar (Sénégal)</p>
+                        <div class="h-48">
+                            <canvas id="chartDakar"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <p class="text-xs text-gray-500 mt-3">Rayonnement solaire (W/m²) — Prévisions 24h</p>
+                <p class="text-xs text-gray-500 mt-4">Unité : W/m²</p>
             </div>
 
-            <!-- Dakar -->
-            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
-                <h3 class="text-lg font-bold mb-4">🇸🇳 Dakar (Sénégal)</h3>
-                <div class="h-56">
-                    <canvas id="chartDakar"></canvas>
-                </div>
-                <p class="text-xs text-gray-500 mt-3">Rayonnement solaire (W/m²) — Prévisions 24h</p>
-            </div>
-
-            <!-- Carbone -->
-            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-yellow-500 md:col-span-2">
+            <!-- ============ CARTE 2 : CARBONE ============ -->
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-yellow-500">
                 <h3 class="text-xl font-bold mb-2">🌍 Intensité Carbone du Réseau Électrique</h3>
-                <p class="text-sm text-gray-500 mb-6">Indicateur clé pour l'implantation de Data Centers verts (données annuelles — Source : Ember).</p>
+                <p class="text-sm text-gray-500 mb-6">Indicateur clé pour l'implantation de Data Centers verts (Source : Ember)</p>
 
                 <div class="grid grid-cols-2 gap-8 text-center">
                     <div>
-                        <span class="block text-5xl font-extrabold text-gray-800">
+                        <p class="text-sm font-semibold text-gray-700 mb-4">🇫🇷 France</p>
+                        <span class="block text-6xl font-extrabold text-gray-800">
                             {{ $chartData['carbon']['france'] !== null ? round($chartData['carbon']['france']) : 'N/A' }}
                         </span>
                         <span class="text-lg font-semibold text-gray-600">gCO₂/kWh</span>
-                        <p class="text-sm text-gray-500 mt-2">🇫🇷 France</p>
                     </div>
                     <div>
-                        <span class="block text-5xl font-extrabold text-gray-800">
+                        <p class="text-sm font-semibold text-gray-700 mb-4">🇸🇳 Sénégal</p>
+                        <span class="block text-6xl font-extrabold text-gray-800">
                             {{ $chartData['carbon']['senegal'] !== null ? round($chartData['carbon']['senegal']) : 'N/A' }}
                         </span>
                         <span class="text-lg font-semibold text-gray-600">gCO₂/kWh</span>
-                        <p class="text-sm text-gray-500 mt-2">🇸🇳 Sénégal</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Internet -->
-            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-purple-500 md:col-span-2">
-                <h3 class="text-xl font-bold mb-2">🌐 Accès à Internet (% de la population)</h3>
-                <p class="text-sm text-gray-500 mb-6">Indicateur TIC clé pour les projets de transformation digitale (Source : Banque Mondiale).</p>
+            <!-- ============ CARTE 3 : INTERNET ============ -->
+            <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-purple-500">
+                <h3 class="text-xl font-bold mb-2">🌐 Accès à Internet</h3>
+                <p class="text-sm text-gray-500 mb-6">Indicateur TIC clé pour les projets de transformation digitale (Source : Banque Mondiale)</p>
 
                 <div class="grid grid-cols-2 gap-8 text-center">
                     <div>
-                        <span class="block text-5xl font-extrabold text-gray-800">
+                        <p class="text-sm font-semibold text-gray-700 mb-4">🇫🇷 France</p>
+                        <span class="block text-6xl font-extrabold text-gray-800">
                             {{ $chartData['internet']['france'] !== null ? round($chartData['internet']['france'], 1) : 'N/A' }}%
                         </span>
-                        <p class="text-sm text-gray-500 mt-2">🇫🇷 France</p>
+                        <span class="text-lg font-semibold text-gray-600">de la population</span>
                     </div>
                     <div>
-                        <span class="block text-5xl font-extrabold text-gray-800">
+                        <p class="text-sm font-semibold text-gray-700 mb-4">🇸🇳 Sénégal</p>
+                        <span class="block text-6xl font-extrabold text-gray-800">
                             {{ $chartData['internet']['senegal'] !== null ? round($chartData['internet']['senegal'], 1) : 'N/A' }}%
                         </span>
-                        <p class="text-sm text-gray-500 mt-2">🇸🇳 Sénégal</p>
+                        <span class="text-lg font-semibold text-gray-600">de la population</span>
                     </div>
                 </div>
             </div>
@@ -92,33 +98,28 @@
     <script>
         const chartData = @json($chartData);
 
-        const commonOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: 'W/m²' }
-                }
-            },
-            plugins: { legend: { display: false } }
-        };
-
         function buildLineChart(id, data, color, bg) {
             new Chart(document.getElementById(id).getContext('2d'), {
                 type: 'line',
                 data: {
                     labels: data.labels.map(t => t.split('T')[1]),
                     datasets: [{
-                        label: 'Rayonnement solaire',
                         data: data.values,
                         borderColor: color,
                         backgroundColor: bg,
                         fill: true,
-                        tension: 0.4
+                        tension: 0.4,
+                        pointRadius: 0
                     }]
                 },
-                options: commonOptions
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'W/m²' } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
             });
         }
 
